@@ -31,18 +31,18 @@ class LANG(object):
 
     STREAM_TEXT = """
 <u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u>\n
-<b>📂 Fɪʟᴇ Nᴀᴍᴇ :</b> <b>{}</b>\n
-<b>📦 Fɪʟᴇ Sɪᴢᴇ :</b> <code>{}</code>\n
-<b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b>\n<code>{}</code>\n
-<b>🖥 Wᴀᴛᴄʜ :</b>\n<code>{}</code>\n
-<b>🔗 Sʜᴀʀᴇ :</b>\n<code>{}</code>\n"""
+<b><i>📂 Fɪʟᴇ Nᴀᴍᴇ ➠</b>\n{}</i>\n
+<b><i>📦 Fɪʟᴇ Sɪᴢᴇ ➠</b> {}</i>\n
+<b><i>📥 Dᴏᴡɴʟᴏᴀᴅ ➠</i></b>\n<code>{}</code>\n
+<b><i>🖥 Wᴀᴛᴄʜ ➠</i></b>\n<code>{}</code>\n
+<b><i>🔗 Sʜᴀʀᴇ ➠</i></b>\n<code>{}</code>\n"""
 
     STREAM_TEXT_X = """
 <i><u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u></i>\n
-<b>📂 Fɪʟᴇ Nᴀᴍᴇ :</b> <b>{}</b>\n
-<b>📦 Fɪʟᴇ Sɪᴢᴇ :</b> <code>{}</code>\n
-<b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b>\n<code>{}</code>\n
-<b>🔗 Sʜᴀʀᴇ :</b>\n<code>{}</code>\n"""
+<b><i>📂 Fɪʟᴇ Nᴀᴍᴇ ➠</b>\n{}</i>\n
+<b><i>📦 Fɪʟᴇ Sɪᴢᴇ ➠</b> {}</i>\n
+<b><i>📥 Dᴏᴡɴʟᴏᴀᴅ ➠</i></b>\n<code>{}</code>\n
+<b><i>🔗 Sʜᴀʀᴇ ➠</i></b>\n<code>{}</code>\n"""
 
     BAN_TEXT = "__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ Aʀᴇ Bᴀɴɴᴇᴅ Tᴏ Usᴇ Mᴇ.__\n\n**[Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ](tg://user?id={}) Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**"
 
