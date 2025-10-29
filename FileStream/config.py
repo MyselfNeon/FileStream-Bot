@@ -42,4 +42,4 @@ class Server:
     )
 
 # ------------- Keep-Alive URL -------------
-KEEP_ALIVE_URL = env.get("KEEP_ALIVE_URL", "https://filesyream.onrender.com/")
+KEEP_ALIVE_URL = env.get("KEEP_ALIVE_URL", "https://filestream-bot-njtx.onrender.com/")
