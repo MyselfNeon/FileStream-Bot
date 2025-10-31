@@ -71,13 +71,16 @@ async def start_services():
     # 🟢 Send startup log to ULOG_CHANNEL (auto-delete after 1 hour)
     try:
         if Telegram.ULOG_CHANNEL:
+            from datetime import datetime
+
+            now = datetime.now().strftime("%d-%m-%Y | %I:%M %p")
+
             restart_msg = await FileStream.send_message(
                 Telegram.ULOG_CHANNEL,
-                f"✅ **Bot Restarted Successfully!**\n\n"
-                f"🤖 **Name:** {bot_info.first_name}\n"
-                f"👤 **Username:** @{bot_info.username}\n"
-                f"🌐 **URL:** {Server.URL}\n\n"
-                f"🕒 This message will self-destruct in 1 hour."
+                f"♻️ **_Bot Successfully Deployed_**\n\n"
+                f"**_Name : {bot_info.first_name}_**\n"
+                f"**_URL : {Server.URL}_**\n\n"
+                f"**_Date & Time : {now}_**"
             )
             logging.info("Restart message sent to ULOG_CHANNEL.")
 
