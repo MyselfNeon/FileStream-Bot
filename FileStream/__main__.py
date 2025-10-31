@@ -39,6 +39,19 @@ logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 server = web.AppRunner(web_server())
 loop = asyncio.get_event_loop()
 
+# ------------- Hosting Platform Detector -------------
+def detect_hosting_platform():
+    if os.getenv("RENDER") or os.getenv("RENDER_SERVICE_ID"):
+        return "Render"
+    elif os.getenv("KOYEB_APP_NAME"):
+        return "Koyeb"
+    elif os.getenv("DYNO"):
+        return "Heroku"
+    elif os.getenv("RAILWAY_STATIC_URL"):
+        return "Railway"
+    else:
+        return "Localhost"
+
 # ------------- Keep Alive Function -------------
 async def keep_alive():
     """Send a request every 300 seconds to keep the bot alive (if required)."""
@@ -76,13 +89,14 @@ async def start_services():
             now = datetime.now()
             date = now.strftime("%d %b %Y")
             time = now.strftime("%I:%M %p")
+            platform_name = detect_hosting_platform()
 
             restart_msg = await FileStream.send_message(
                 Telegram.ULOG_CHANNEL,
                 (
                     "♻️ **Bot Successfully Deployed**\n\n"
                     f"**__🤖 Name : {bot_info.first_name}__**\n"
-                    f"**__🌐 URL : [On Render]({Server.URL})__**\n\n"
+                    f"**__🌐 URL : [On {platform_name}]({Server.URL})__**\n\n"
                     f"**__📆 Date : {date}__**\n"
                     f"**__⏰ Time : {time}__**"
                 ),
@@ -146,4 +160,3 @@ if __name__ == "__main__":
         loop.run_until_complete(cleanup())
         loop.stop()
         print("------------------------ Stopped Services ------------------------")
-        
