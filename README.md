@@ -82,7 +82,7 @@ docker restart fsb
   python3 -m FileStream
   ```
 
-  * ***To stop the whole Bot, press <kbd>CTRL</kbd> + <kbd>C</kbd>.***
+  * ***To stop the Bot Press <kbd>CTRL</kbd> + <kbd>C</kbd>.***
 
   * ***If you want to run this Bot 24/7 on a VPS, follow these Steps :***
   ```sh
