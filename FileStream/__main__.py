@@ -5,7 +5,7 @@ import asyncio
 import logging
 import traceback
 import logging.handlers as handlers
-from FileStream.config import Telegram, Server, KEEP_ALIVE_URL, ULOG_CHANNEL, FLOG_CHANNEL
+from FileStream.config import Telegram, Server, KEEP_ALIVE_URL
 from aiohttp import web
 from pyrogram import idle
 import aiohttp
@@ -70,9 +70,9 @@ async def start_services():
 
     # 🟢 Send startup log to ULOG_CHANNEL (auto-delete after 1 hour)
     try:
-        if ULOG_CHANNEL:
+        if Telegram.ULOG_CHANNEL:
             restart_msg = await FileStream.send_message(
-                ULOG_CHANNEL,
+                Telegram.ULOG_CHANNEL,
                 f"✅ **Bot Restarted Successfully!**\n\n"
                 f"🤖 **Name:** {bot_info.first_name}\n"
                 f"👤 **Username:** @{bot_info.username}\n"
@@ -134,3 +134,4 @@ if __name__ == "__main__":
         loop.run_until_complete(cleanup())
         loop.stop()
         print("------------------------ Stopped Services ------------------------")
+        
