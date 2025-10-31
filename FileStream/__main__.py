@@ -1,14 +1,14 @@
 # ------------- Imports -------------
 import sys
-import os  # ✅ Added this — fixes the "os not defined" issue from config.py
+import os
 import asyncio
 import logging
 import traceback
 import logging.handlers as handlers
-from FileStream.config import Telegram, Server, KEEP_ALIVE_URL  # 🟢 Includes KEEP_ALIVE_URL import
+from FileStream.config import Telegram, Server, KEEP_ALIVE_URL, ULOG_CHANNEL, FLOG_CHANNEL
 from aiohttp import web
 from pyrogram import idle
-import aiohttp  # 🟢 Needed for keep_alive()
+import aiohttp
 
 from FileStream.bot import FileStream
 from FileStream.server import web_server
@@ -67,6 +67,33 @@ async def start_services():
     FileStream.username = bot_info.username
     FileStream.fname = bot_info.first_name
     print("------------------------------ DONE ------------------------------")
+
+    # 🟢 Send startup log to ULOG_CHANNEL (auto-delete after 1 hour)
+    try:
+        if ULOG_CHANNEL:
+            restart_msg = await FileStream.send_message(
+                ULOG_CHANNEL,
+                f"✅ **Bot Restarted Successfully!**\n\n"
+                f"🤖 **Name:** {bot_info.first_name}\n"
+                f"👤 **Username:** @{bot_info.username}\n"
+                f"🌐 **URL:** {Server.URL}\n\n"
+                f"🕒 This message will self-destruct in 1 hour."
+            )
+            logging.info("Restart message sent to ULOG_CHANNEL.")
+
+            # Schedule deletion after 1 hour (3600 seconds)
+            async def delete_after_delay(msg):
+                await asyncio.sleep(3600)
+                try:
+                    await msg.delete()
+                    logging.info("Restart message auto-deleted after 1 hour.")
+                except Exception as e:
+                    logging.error(f"Failed to delete restart message: {e}")
+
+            loop.create_task(delete_after_delay(restart_msg))
+    except Exception as e:
+        logging.error(f"Failed to send restart log message: {e}")
+
     print()
     print("---------------------- Initializing Clients ----------------------")
     await initialize_clients()
@@ -95,7 +122,6 @@ async def cleanup():
     await server.cleanup()
     await FileStream.stop()
 
-
 # ------------- Main Entry Point -------------
 if __name__ == "__main__":
     try:
@@ -108,4 +134,3 @@ if __name__ == "__main__":
         loop.run_until_complete(cleanup())
         loop.stop()
         print("------------------------ Stopped Services ------------------------")
-        
