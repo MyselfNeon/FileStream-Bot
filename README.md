@@ -27,66 +27,70 @@
 <details><summary><b><i>Deploy on Multiple Servers</i></summary></b></summary>
 <br>
 <details>
-  <summary><b><i>Deploy on Heroku (Paid)</i></b></summary>
+    <summary><b><i>Deploy on Heroku (Paid)</i></b></summary>
+    <br>
 
-- Fork This Repo
-- Click on Deploy Easily
-- Press the below Button to Fast Deploy on Heroku
+  * ***Fork This Repo***
+  * ***Click on Deploy Easily***
+  * ***Press the below Button to Fast Deploy on Heroku***
 
+  [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-   [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
-- Go to <a href="#mandatory-vars">variables tab</a> for more info on Setting up Environmental Variables. </details>
+  * ***Go to <a href="#mandatory-vars">Variables Tab</a> for more info on Setting up Environmental Variables.***
+  </details>
 
 <details>
   <summary><b><i>Deploy Using Docker</i></b></summary>
 <br>
-* Clone the Repository:
+
+* ***Clone the Repository :***
 ```sh
 git clone https://github.com/myselfneon/FileStream-Bot
 cd FileStreamBot
 ```
-* Build own Docker Umage:
+
+* ***Build own Docker Image :***
 ```sh
 docker build -t file-stream .
 ```
 
-* Create ENV and Start Container:
+* ***Create ENV and Start Container :***
 ```sh
 docker run -d --restart unless-stopped --name fsb \
 -v /PATH/TO/.env:/app/.env \
 -p 8000:8000 \
 file-stream
 ```
-- If you Need to Change the Variables in .env File after your Bot was Already Started, all you need to do is Restart the container for the Bot Settings to get Updated:
+
+* ***If you Need to Change the Variables in .env File after your Bot was Already Started, all you need to do is Restart the container for the Bot Settings to get Updated:***
 ```sh
 docker restart fsb
 ```
 
-  </details>
+</details>
 
 <details>
-  <summary><b><i>Deploy Locally</i></b></summary>
-<br>
+    <summary><b><i>Deploy Locally</i></b></summary>
+    <br>
 
-```sh
-git clone https://github.com/myselfneon/FileStream-Bot
-cd FileStreamBot
-python3 -m venv ./venv
-. ./venv/bin/activate
-pip install -r requirements.txt
-python3 -m FileStream
-```
+  ```sh
+  git clone https://github.com/myselfneon/FileStream-Bot
+  cd FileStreamBot
+  python3 -m venv ./venv
+  . ./venv/bin/activate
+  pip install -r requirements.txt
+  python3 -m FileStream
+  ```
 
-- To stop the whole bot,
- do <kbd>CTRL</kbd>+<kbd>C</kbd>
+  * ***To stop the whole Bot, press <kbd>CTRL</kbd> + <kbd>C</kbd>.***
 
-- If you want to run this bot 24/7 on the VPS, follow these steps.
-```sh
-sudo apt install tmux -y
-tmux
-python3 -m FileStream
-```
-- now you can close the VPS and the bot will run on it.
+  * ***If you want to run this Bot 24/7 on a VPS, follow these Steps :***
+  ```sh
+  sudo apt install tmux -y
+  tmux
+  python3 -m FileStream
+  ```
+  * ***Now you can Close the VPS terminal — the Bot will Keep Running in the Background.***
 
   </details>
 
