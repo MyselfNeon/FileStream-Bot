@@ -73,25 +73,34 @@ async def start_services():
         if Telegram.ULOG_CHANNEL:
             from datetime import datetime
 
-            now = datetime.now().strftime("%d-%m-%Y | %I:%M %p")
+            now = datetime.now()
+            date = now.strftime("%d %b %Y")
+            time = now.strftime("%I:%M %p")
 
             restart_msg = await FileStream.send_message(
                 Telegram.ULOG_CHANNEL,
-                f"♻️ **_Bot Successfully Deployed_**\n\n"
-                f"**_Name : {bot_info.first_name}_**\n"
-                f"**_URL : {Server.URL}_**\n\n"
-                f"**_Date & Time : {now}_**"
+                (
+                    "♻️ **Bot Successfully Deployed**\n\n"
+                    f"**__🤖 Name : {bot_info.first_name}__**\n"
+                    f"**__🌐 URL : [On Render]({Server.URL})__**\n\n"
+                    f"**__📆 Date : {date}__**\n"
+                    f"**__⏰ Time : {time}__**"
+                ),
+                disable_web_page_preview=True
             )
             logging.info("Restart message sent to ULOG_CHANNEL.")
 
-            # Schedule deletion after 1 hour (3600 seconds)
+            # Schedule Deletion After 1 Hour (3600 seconds)
             async def delete_after_delay(msg):
                 await asyncio.sleep(3600)
                 try:
                     await msg.delete()
                     logging.info("Restart message auto-deleted after 1 hour.")
                 except Exception as e:
-                    logging.error(f"Failed to delete restart message: {e}")
+                    if "message to delete not found" in str(e).lower() or "messageidinvalid" in str(e).lower():
+                        pass  # Ignore If Manually Deleted
+                    else:
+                        logging.error(f"Failed to delete restart message: {e}")
 
             loop.create_task(delete_after_delay(restart_msg))
     except Exception as e:
