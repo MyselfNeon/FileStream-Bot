@@ -1,3 +1,14 @@
+# ---------------------------------------------------
+# File Name: Clients.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import asyncio
 import logging
 from os import environ
@@ -57,3 +68,8 @@ async def initialize_clients():
         print("Multi-Client Mode Enabled")
     else:
         print("No additional clients were initialized, using default client")
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles
