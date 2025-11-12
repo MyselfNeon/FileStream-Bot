@@ -1,4 +1,14 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Callback.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import datetime
 import math
 from FileStream import __version__
@@ -13,10 +23,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 from pyrogram.file_id import FileId, FileType, PHOTO_TYPES
 from pyrogram.enums.parse_mode import ParseMode
 
-# ------------- Database Setup -------------
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# ---------------------[ START CMD ]--------------------- #
 @FileStream.on_callback_query()
 async def cb_data(bot, update: CallbackQuery):
     usr_cmd = update.data.split("_")
@@ -39,7 +47,6 @@ async def cb_data(bot, update: CallbackQuery):
             reply_markup=BUTTON.ABOUT_BUTTONS
         )
 
-    # ---------------------[ MY FILES CMD ]--------------------- #
     elif usr_cmd[0] == "N/A":
         await update.answer("N/A", True)
     elif usr_cmd[0] == "close":
@@ -100,7 +107,6 @@ async def cb_data(bot, update: CallbackQuery):
     else:
         await update.message.delete()
 
-# ---------------------[ MY FILES FUNC ]--------------------- #
 async def gen_file_list_button(file_list_no: int, user_id: int):
     file_range = [file_list_no * 10 - 10 + 1, file_list_no * 10]
     user_files, total_files = await db.find_files(user_id, file_range)
@@ -214,3 +220,8 @@ async def delete_user_filex(_id, update: CallbackQuery):
         caption="**Fɪʟᴇ Dᴇʟᴇᴛᴇᴅ Sᴜᴄᴄᴇssғᴜʟʟʏ !**\n\n",
         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("ᴄʟᴏsᴇ", callback_data="close")]])
                                     )
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

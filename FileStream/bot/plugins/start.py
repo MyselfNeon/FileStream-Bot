@@ -1,4 +1,14 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Start.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import logging
 import math
 import asyncio
@@ -14,19 +24,15 @@ from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.enums.parse_mode import ParseMode
 
-# ------------- Database Setup -------------
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# -------------------
 # Supported Reactions
-# -------------------
 REACTIONS = [
     "🤝", "😇", "🤗", "😍", "👍", "🎅", "😐", "🥰", "🤩",
     "😱", "🤣", "😘", "👏", "😛", "😈", "🎉", "⚡️", "🫡",
     "🤓", "😎", "🏆", "🔥", "🤭", "🌚", "🆒", "👻", "😁"
 ]
 
-# ---------------------[ START COMMAND ]--------------------- #
 @FileStream.on_message(filters.command('start') & filters.private)
 async def start(bot: Client, message: Message):
     # 🌀 Random reaction at the start
@@ -105,7 +111,6 @@ async def start(bot: Client, message: Message):
         else:
             await message.reply_text("**Invalid Command**")
 
-# ---------------------[ ABOUT COMMAND ]--------------------- #
 @FileStream.on_message(filters.private & filters.command(["about"]))
 async def start(bot, message):
     if not await verify_user(bot, message):
@@ -124,7 +129,6 @@ async def start(bot, message):
             reply_markup=BUTTON.ABOUT_BUTTONS
         )
 
-# ---------------------[ HELP COMMAND ]--------------------- #
 @FileStream.on_message(filters.command('help') & filters.private)
 async def help_handler(bot, message):
     if not await verify_user(bot, message):
@@ -144,7 +148,6 @@ async def help_handler(bot, message):
             reply_markup=BUTTON.HELP_BUTTONS
         )
 
-# ---------------------[ MY FILES COMMAND ]--------------------- #
 @FileStream.on_message(filters.command('files') & filters.private)
 async def my_files(bot: Client, message: Message):
     if not await verify_user(bot, message):
@@ -173,3 +176,8 @@ async def my_files(bot: Client, message: Message):
         caption=f"Total files: {total_files}",
         reply_markup=InlineKeyboardMarkup(file_list)
     )
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

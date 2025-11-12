@@ -1,4 +1,14 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Stream.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import asyncio
 from FileStream.bot import FileStream, multi_clients
 from FileStream.utils.bot_utils import (
@@ -18,10 +28,8 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums.parse_mode import ParseMode
 
-# ------------- Database -------------
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# ------------- Private Message Handler -------------
 @FileStream.on_message(
     filters.private
     & (
@@ -68,7 +76,6 @@ async def private_receive_handler(bot: Client, message: Message):
             parse_mode=ParseMode.MARKDOWN
         )
 
-# ------------- Channel Message Handler -------------
 @FileStream.on_message(
     filters.channel
     & ~filters.forwarded
@@ -117,3 +124,8 @@ async def channel_receive_handler(bot: Client, message: Message):
             disable_web_page_preview=True
         )
         print(f"Cᴀɴ'ᴛ Eᴅɪᴛ Bʀᴏᴀᴅᴄᴀsᴛ Mᴇssᴀɢᴇ!\nEʀʀᴏʀ:  **Gɪᴠᴇ ᴍᴇ ᴇᴅɪᴛ ᴘᴇʀᴍɪssɪᴏɴ ɪɴ ᴜᴘᴅᴀᴛᴇs ᴀɴᴅ ʙɪɴ Cʜᴀɴɴᴇʟ!{e}**")
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

@@ -1,4 +1,14 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Admin.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import os
 import time
 import string
@@ -16,11 +26,11 @@ from pyrogram import filters, Client
 from pyrogram.types import Message
 from pyrogram.enums.parse_mode import ParseMode
 
-# ------------- Database Setup -------------
+# Database Setup 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 broadcast_ids = {}
 
-# ------------- /status Command -------------
+# /status Command 
 @FileStream.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
 async def sts(c: Client, m: Message):
     await m.reply_text(
@@ -32,7 +42,7 @@ async def sts(c: Client, m: Message):
         quote=True
     )
 
-# ------------- /ban Command -------------
+# /ban Command 
 @FileStream.on_message(filters.command("ban") & filters.private & filters.user(Telegram.OWNER_ID))
 async def ban_user(b, m: Message):
     if len(m.command) < 2:
@@ -59,7 +69,7 @@ async def ban_user(b, m: Message):
     else:
         await m.reply_text(f"`{id}` **is already banned.**", parse_mode=ParseMode.MARKDOWN, quote=True)
 
-# ------------- /unban Command -------------
+# /unban Command 
 @FileStream.on_message(filters.command("unban") & filters.private & filters.user(Telegram.OWNER_ID))
 async def unban_user(b, m: Message):
     if len(m.command) < 2:
@@ -85,7 +95,7 @@ async def unban_user(b, m: Message):
     else:
         await m.reply_text(f"`{id}` **is not banned.**", parse_mode=ParseMode.MARKDOWN, quote=True)
 
-# ------------- /broadcast Command -------------
+# /broadcast Command 
 @FileStream.on_message(filters.command("broadcast") & filters.private & filters.user(Telegram.OWNER_ID))
 async def broadcast_(c, m):
     # Check if the command is used as a reply
@@ -150,7 +160,7 @@ async def broadcast_(c, m):
         )
     os.remove('broadcast.txt')
 
-# ------------- /del Command -------------
+# /del Command 
 @FileStream.on_message(filters.command("del") & filters.private & filters.user(Telegram.OWNER_ID))
 async def del_file(c: Client, m: Message):
     file_id = m.text.split(" ")[-1]
@@ -167,3 +177,8 @@ async def del_file(c: Client, m: Message):
     await db.delete_one_file(file_info['_id'])
     await db.count_links(file_info['user_id'], "-")
     await m.reply_text("✅ **File deleted successfully!**", quote=True)
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles
