@@ -1,4 +1,14 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Main.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import sys
 import os
 import asyncio
@@ -14,7 +24,7 @@ from FileStream.bot import FileStream
 from FileStream.server import web_server
 from FileStream.bot.clients import initialize_clients
 
-# ------------- Logging Setup -------------
+# Logging Setup
 logging.basicConfig(
     level=logging.INFO,
     datefmt="%d/%m/%Y %H:%M:%S",
@@ -35,11 +45,11 @@ logging.getLogger("aiohttp").setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 
-# ------------- Server and Loop -------------
+# Server and Loop
 server = web.AppRunner(web_server())
 loop = asyncio.get_event_loop()
 
-# ------------- Hosting Platform Detector -------------
+# Hosting Platform Detector
 def detect_hosting_platform():
     if os.getenv("RENDER") or os.getenv("RENDER_SERVICE_ID"):
         return "Render"
@@ -52,7 +62,7 @@ def detect_hosting_platform():
     else:
         return "Localhost"
 
-# ------------- Keep Alive Function -------------
+# Keep Alive Function
 async def keep_alive():
     """Send a request every 100 seconds to keep the bot alive (if required)."""
     async with aiohttp.ClientSession() as session:
@@ -64,7 +74,7 @@ async def keep_alive():
                 logging.error(f"Keep-alive request failed: {e}")
             await asyncio.sleep(100)
 
-# ------------- Start Services -------------
+# Start Services
 async def start_services():
     print()
     if Telegram.SECONDARY:
@@ -143,12 +153,12 @@ async def start_services():
 
     await idle()
 
-# ------------- Cleanup -------------
+# Cleanup 
 async def cleanup():
     await server.cleanup()
     await FileStream.stop()
 
-# ------------- Main Entry Point -------------
+# Main Entry Point
 if __name__ == "__main__":
     try:
         loop.run_until_complete(start_services())
@@ -160,3 +170,8 @@ if __name__ == "__main__":
         loop.run_until_complete(cleanup())
         loop.stop()
         print("------------------------ Stopped Services ------------------------")
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

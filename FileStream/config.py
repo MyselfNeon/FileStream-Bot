@@ -1,11 +1,21 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Config.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 from os import environ as env
 from dotenv import load_dotenv
 
-# ------------- Load Environment Variables -------------
+# Load Environment Variables
 load_dotenv()
 
-# ------------- Telegram Configuration -------------
+# Telegram Configuration
 class Telegram:
     API_ID = int(env.get("API_ID"))
     API_HASH = str(env.get("API_HASH"))
@@ -29,7 +39,7 @@ class Telegram:
     SECONDARY = True if MODE.lower() == "secondary" else False
     AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "")).split()))
 
-# ------------- Server Configuration -------------
+# Server Configuration
 class Server:
     PORT = int(env.get("PORT", 8080))  # Render will auto-assign or override this
     BIND_ADDRESS = str(env.get("BIND_ADDRESS", "0.0.0.0"))  # <-- important fix
@@ -41,5 +51,11 @@ class Server:
         "s" if HAS_SSL else "", FQDN, "" if NO_PORT else ":" + str(PORT)
     )
 
-# ------------- Keep-Alive URL -------------
+# Keep-Alive URL
 KEEP_ALIVE_URL = env.get("KEEP_ALIVE_URL", "")
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles
+
