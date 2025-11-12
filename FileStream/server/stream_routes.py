@@ -1,4 +1,14 @@
-# ------------- Imports -------------
+# ---------------------------------------------------
+# File Name: Stream_Routes.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import time
 import math
 import logging
@@ -12,10 +22,10 @@ from FileStream.server.exceptions import FIleNotFound, InvalidHash
 from FileStream import utils, StartTime, __version__
 from FileStream.utils.render_template import render_page
 
-# ------------- Routes -------------
+# Routes
 routes = web.RouteTableDef()
 
-# ------------- Status Route -------------
+# Status Route
 @routes.get("/status", allow_head=True)
 async def root_route_handler(_):
     return web.json_response(
@@ -34,7 +44,7 @@ async def root_route_handler(_):
         }
     )
 
-# ------------- Watch Route -------------
+# Watch Route
 @routes.get("/watch/{path}", allow_head=True)
 async def stream_handler(request: web.Request):
     try:
@@ -47,7 +57,7 @@ async def stream_handler(request: web.Request):
     except (AttributeError, BadStatusLine, ConnectionResetError):
         pass
 
-# ------------- Download Route -------------
+# Download Route
 @routes.get("/dl/{path}", allow_head=True)
 async def stream_handler(request: web.Request):
     try:
@@ -65,10 +75,10 @@ async def stream_handler(request: web.Request):
         logging.debug(traceback.format_exc())
         raise web.HTTPInternalServerError(text=str(e))
 
-# ------------- Cache -------------
+# Cache
 class_cache = {}
 
-# ------------- Media Streamer -------------
+# Media Streamer
 async def media_streamer(request: web.Request, db_id: str):
     range_header = request.headers.get("Range", 0)
 
@@ -142,3 +152,8 @@ async def media_streamer(request: web.Request, db_id: str):
             "Accept-Ranges": "bytes",
         },
         )
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles
