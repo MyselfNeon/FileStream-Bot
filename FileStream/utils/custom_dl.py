@@ -1,4 +1,14 @@
-# ------- neon --------
+# ---------------------------------------------------
+# File Name: Custom_dl.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import asyncio
 import logging
 from typing import Dict, Union
@@ -10,7 +20,7 @@ from pyrogram.errors import AuthBytesInvalid
 from pyrogram.file_id import FileId, FileType, ThumbnailSource
 from pyrogram.types import Message
 
-# ------- ByteStreamer --------
+# ByteStreamer
 class ByteStreamer:
     def __init__(self, client: Client):
         self.clean_timer = 30 * 60
@@ -214,3 +224,8 @@ class ByteStreamer:
             await asyncio.sleep(self.clean_timer)
             self.cached_file_ids.clear()
             logging.debug("Cleaned the cache")
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

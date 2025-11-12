@@ -1,8 +1,17 @@
-# ------- imports -------
+# ---------------------------------------------------
+# File Name: Translation.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from FileStream.config import Telegram
 
-# ------- language text -------
 class LANG(object):
 
     START_TEXT = """
@@ -47,7 +56,6 @@ class LANG(object):
     BAN_TEXT = "__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ Aʀᴇ Bᴀɴɴᴇᴅ Tᴏ Usᴇ Mᴇ.__\n\n**[Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ](tg://user?id={}) Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**"
 
 
-# ------- inline buttons -------
 class BUTTON(object):
 
     START_BUTTONS = InlineKeyboardMarkup(
@@ -87,3 +95,8 @@ class BUTTON(object):
             ]
         ]
     )
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

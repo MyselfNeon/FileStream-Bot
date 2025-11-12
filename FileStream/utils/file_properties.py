@@ -1,3 +1,14 @@
+# ---------------------------------------------------
+# File Name: File_Properties.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 from __future__ import annotations
 import logging
 from datetime import datetime
@@ -13,7 +24,6 @@ from FileStream.config import Telegram, Server
 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# ------- get_file_ids -------
 async def get_file_ids(client: Client | bool, db_id: str, multi_clients, message) -> Optional[FileId]:
     logging.debug("Starting of get_file_ids")
     file_info = await db.get_file(db_id)
@@ -45,7 +55,6 @@ async def get_file_ids(client: Client | bool, db_id: str, multi_clients, message
     logging.debug("Ending of get_file_ids")
     return file_id
 
-# ------- get_media_from_message -------
 def get_media_from_message(message: "Message") -> Any:
     media_types = (
         "audio", "document", "photo", "sticker", "animation",
@@ -56,12 +65,10 @@ def get_media_from_message(message: "Message") -> Any:
         if media:
             return media
 
-# ------- get_media_file_size -------
 def get_media_file_size(m):
     media = get_media_from_message(m)
     return getattr(media, "file_size", "None")
 
-# ------- get_name -------
 def get_name(media_msg: Message | FileId) -> str:
     if isinstance(media_msg, Message):
         media = get_media_from_message(media_msg)
@@ -90,7 +97,6 @@ def get_name(media_msg: Message | FileId) -> str:
 
     return file_name
 
-# ------- get_file_info -------
 def get_file_info(message):
     media = get_media_from_message(message)
     user_idx = message.from_user.id if message.chat.type == ChatType.PRIVATE else message.chat.id
@@ -103,7 +109,6 @@ def get_file_info(message):
         "mime_type": getattr(media, "mime_type", "None/unknown")
     }
 
-# ------- update_file_id -------
 async def update_file_id(msg_id, multi_clients):
     file_ids = {}
     for client_id, client in multi_clients.items():
@@ -112,7 +117,6 @@ async def update_file_id(msg_id, multi_clients):
         file_ids[str(client.id)] = getattr(media, "file_id", "")
     return file_ids
 
-# ------- send_file -------
 async def send_file(client: Client, db_id, file_id: str, message):
     file_caption = getattr(message, 'caption', None) or get_name(message)
     log_msg = await client.send_cached_media(
@@ -146,3 +150,8 @@ async def send_file(client: Client, db_id, file_id: str, message):
         )
 
     return log_msg
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

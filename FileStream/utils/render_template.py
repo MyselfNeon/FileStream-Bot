@@ -1,17 +1,24 @@
-# ------- imports -------
+# ---------------------------------------------------
+# File Name: Render_Template.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 import aiohttp
 import jinja2
 import urllib.parse
 
-# ------- internal imports -------
 from FileStream.config import Telegram, Server
 from FileStream.utils.database import Database
 from FileStream.utils.human_readable import humanbytes
 
-# ------- database init -------
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# ------- render_page function -------
 async def render_page(db_id):
     file_data = await db.get_file(db_id)
     src = urllib.parse.urljoin(Server.URL, f'dl/{file_data["_id"]}')
@@ -34,3 +41,8 @@ async def render_page(db_id):
         file_url=src,
         file_size=file_size
     )
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles

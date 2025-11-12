@@ -1,4 +1,14 @@
-# ------- Neon --------
+# ---------------------------------------------------
+# File Name: Bot_utils.py
+# Author: NeonAnurag
+# GitHub: https://github.com/MyselfNeon/
+# Telegram: https://t.me/MyelfNeon
+# Created: 2025-11-21
+# Last Modified: 2025-11-22
+# Version: Latest
+# License: MIT License
+# ---------------------------------------------------
+
 from pyrogram.errors import UserNotParticipant, FloodWait
 from pyrogram.enums.parse_mode import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
@@ -10,10 +20,10 @@ from FileStream.bot import FileStream
 import asyncio
 from typing import Union
 
-# ------- Database --------
+# Database
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# ------- Invite Link --------
+# Invite Link
 async def get_invite_link(bot, chat_id: Union[str, int]):
     try:
         invite_link = await bot.create_chat_invite_link(chat_id=chat_id)
@@ -23,7 +33,7 @@ async def get_invite_link(bot, chat_id: Union[str, int]):
         await asyncio.sleep(e.value)
         return await get_invite_link(bot, chat_id)
 
-# ------- Force Sub Check --------
+# Force Sub Check
 async def is_user_joined(bot, message: Message):
     if Telegram.FORCE_SUB_ID and Telegram.FORCE_SUB_ID.startswith("-100"):
         channel_chat_id = int(Telegram.FORCE_SUB_ID)
@@ -78,7 +88,7 @@ async def is_user_joined(bot, message: Message):
         return False
     return True
 
-# ------- Private Gen Link --------
+# Private Gen Link
 async def gen_link(_id):
     file_info = await db.get_file(_id)
     file_name = file_info['file_name']
@@ -115,7 +125,7 @@ async def gen_link(_id):
         )
     return reply_markup, stream_text
 
-# ------- Channel Gen Link --------
+# Channel Gen Link
 async def gen_linkx(m: Message, _id, name: list):
     file_info = await db.get_file(_id)
     file_name = file_info['file_name']
@@ -142,7 +152,7 @@ async def gen_linkx(m: Message, _id, name: list):
         )
     return reply_markup, stream_text
 
-# ------- User Banned --------
+# User Banned
 async def is_user_banned(message):
     if await db.is_user_banned(message.from_user.id):
         await message.reply_text(
@@ -153,7 +163,7 @@ async def is_user_banned(message):
         return True
     return False
 
-# ------- Channel Banned --------
+# Channel Banned
 async def is_channel_banned(bot, message):
     if await db.is_user_banned(message.chat.id):
         await bot.edit_message_reply_markup(
@@ -165,7 +175,7 @@ async def is_channel_banned(bot, message):
         return True
     return False
 
-# ------- User Authorized --------
+# User Authorized
 async def is_user_authorized(message):
     if hasattr(Telegram, 'AUTH_USERS') and Telegram.AUTH_USERS:
         user_id = message.from_user.id
@@ -183,7 +193,7 @@ async def is_user_authorized(message):
 
     return True
 
-# ------- User Exist --------
+# User Exist
 async def is_user_exist(bot, message):
     if not bool(await db.get_user(message.from_user.id)):
         await db.add_user(message.from_user.id)
@@ -192,7 +202,7 @@ async def is_user_exist(bot, message):
             f"**#NᴇᴡUsᴇʀ**\n**⬩ ᴜsᴇʀ ɴᴀᴍᴇ :** [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n**⬩ ᴜsᴇʀ ɪᴅ :** `{message.from_user.id}`"
         )
 
-# ------- Channel Exist --------
+# Channel Exist
 async def is_channel_exist(bot, message):
     if not bool(await db.get_user(message.chat.id)):
         await db.add_user(message.chat.id)
@@ -202,7 +212,7 @@ async def is_channel_exist(bot, message):
             f"**#NᴇᴡCʜᴀɴɴᴇʟ** \n**⬩ ᴄʜᴀᴛ ɴᴀᴍᴇ :** `{message.chat.title}`\n**⬩ ᴄʜᴀᴛ ɪᴅ :** `{message.chat.id}`\n**⬩ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs :** `{members}`"
         )
 
-# ------- Verify User --------
+# Verify User
 async def verify_user(bot, message):
     if not await is_user_authorized(message):
         return False
@@ -217,3 +227,8 @@ async def verify_user(bot, message):
             return False
 
     return True
+
+
+# MyselfNeon
+# Don't Remove Credit 🥺
+# Telegram Channel @NeonFiles
