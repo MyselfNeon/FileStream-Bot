@@ -1,6 +1,6 @@
 <h2 align="center"><i>FileStream-Bot</i></h1>
 <p align="center">
-  <a href="https://github.com/MyselfNeon/FileStream-Bot">
+  <a href="https://t.me/FileStream_oBot">
     <img src="https://files.catbox.moe/6x59s2.jpg" alt="Cover Image" width="550">
   </a>
 </p>  
