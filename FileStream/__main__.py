@@ -106,7 +106,7 @@ async def start_services():
                 (
                     "♻️ **__Bot Successfully Deployed__**\n\n"
                     f"**__🤖 Name : {bot_info.first_name}__**\n"
-                    f"**__🌐 Deployed On : [On {platform_name}]({Server.URL})__**\n\n"
+                    f"**__🌐 Deployed On : [{platform_name}]({Server.URL})__**\n\n"
                     f"**__📆 Date : {date}__**\n"
                     f"**__⏰ Time : {time}__**"
                 ),
