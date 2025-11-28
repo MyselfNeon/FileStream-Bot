@@ -6,9 +6,9 @@
         "files",
         "stream"
     ],
-  "repository": "https://github.com/avipatilpro/FileStreamBot/",
+  "repository": "https://github.com/MyselfNeon/FileStream-Bot/",
   "success_url": "/",
-  "logo": "https://i.ibb.co/ZJzJ9Hq/link-3x.png",
+  "logo": "https://files.catbox.moe/rayjpl.png",
   "env": {
     "ENV": {
       "description": "Set this to True if you don't want to crash the bot",
