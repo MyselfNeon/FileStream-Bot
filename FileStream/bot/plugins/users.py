@@ -3,8 +3,8 @@ import os
 from pyrogram import Client, filters
 from pyrogram.types import Message
 # --- Import database connection and owner ID from your config ---
-from config import OWNER_ID
-from database.db import db # Assuming your 'db' object is imported from 'database/db.py'
+from FileStream.config import OWNER_ID
+from FileStream.utils.database import Database # Assuming your 'db' object is imported from 'database/db.py'
 # ----------------------------------------------------------------
 
 # Configure Admin List for filter
