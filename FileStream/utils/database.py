@@ -24,16 +24,32 @@ class Database:
         self.black = self.db.blacklist
         self.file = self.db.file
 
-    def new_user(self, id):
+    # Accepts name and username
+    def new_user(self, id, name, username):
         return dict(
             id=id,
+            name=name,
+            username=username,
             join_date=time.time(),
             Links=0
         )
 
-    async def add_user(self, id):
-        user = self.new_user(id)
+    # Passes name and username to creation
+    async def add_user(self, id, name, username):
+        user = self.new_user(id, name, username)
         await self.col.insert_one(user)
+
+    # Essential for bot_utils to check existence
+    async def is_user_exist(self, id):
+        user = await self.col.find_one({'id': int(id)})
+        return True if user else False
+
+    # Updates name/username if the user already exists (Self-Healing)
+    async def update_user_info(self, id, name, username):
+        await self.col.update_one(
+            {'id': int(id)},
+            {'$set': {'name': name, 'username': username}}
+        )
 
     async def get_user(self, id):
         user = await self.col.find_one({'id': int(id)})
