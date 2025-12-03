@@ -32,7 +32,6 @@ from pyrogram.enums.parse_mode import ParseMode
 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 
-# Set Admin ID for filtering (Required for /users command)
 ADMINS = [Telegram.OWNER_ID]
 
 @FileStream.on_message(
@@ -130,10 +129,6 @@ async def channel_receive_handler(bot: Client, message: Message):
         )
         print(f"Cᴀɴ'ᴛ Eᴅɪᴛ Bʀᴏᴀᴅᴄᴀsᴛ Mᴇssᴀɢᴇ!\nEʀʀᴏʀ:  **Gɪᴠᴇ ᴍᴇ ᴇᴅɪᴛ ᴘᴇʀᴍɪssɪᴏɴ ɪɴ ᴜᴘᴅᴀᴛᴇs ᴀɴᴅ ʙɪɴ Cʜᴀɴɴᴇʟ!{e}**")
 
-
-# ---------------------------------------------------
-# /users Command Handler (Merged)
-# ---------------------------------------------------
 @FileStream.on_message(filters.command("users") & filters.user(ADMINS))
 async def users_count(bot: Client, message: Message):
     """
@@ -167,8 +162,8 @@ async def users_count(bot: Client, message: Message):
                 "id": user.get("id")
             })
 
-        # Define temporary filename
-        tmp_path = "user_database_export.json" 
+        # Define temporary filename - NOW SET TO FileStreamBot.json
+        tmp_path = "FileStreamBot.json" 
         
         # Write data to JSON file
         with open(tmp_path, "w", encoding="utf-8") as f:
