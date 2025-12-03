@@ -30,7 +30,11 @@ class Telegram:
     FORCE_SUB = True if str(FORCE_SUB).lower() == "true" else False
     SLEEP_THRESHOLD = int(env.get("SLEEP_THRESHOLD", "60"))
     FILE_PIC = env.get('FILE_PIC', "https://files.catbox.moe/g6vp9p.jpg")
-    START_PIC = env.get('START_PIC', "https://files.catbox.moe/9whu8j.jpg")
+    
+    # Comma-seperated urls to get random images on each start command
+    START_PICS_STRING = env.get('START_PICS', "https://files.catbox.moe/9whu8j.jpg")
+    START_PICS = [url.strip() for url in START_PICS_STRING.split(',')]
+    
     VERIFY_PIC = env.get('VERIFY_PIC', "https://files.catbox.moe/bxv5bd.jpg")
     MULTI_CLIENT = False
     FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", None))   # Logs channel for file logs
@@ -58,4 +62,3 @@ KEEP_ALIVE_URL = env.get("KEEP_ALIVE_URL", "")
 # MyselfNeon
 # Don't Remove Credit 🥺
 # Telegram Channel @NeonFiles
-
