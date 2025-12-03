@@ -29,7 +29,7 @@ class Telegram:
     FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', True)
     FORCE_SUB = True if str(FORCE_SUB).lower() == "true" else False
     SLEEP_THRESHOLD = int(env.get("SLEEP_THRESHOLD", "60"))
-    FILE_PIC = env.get('FILE_PIC', "https://files.catbox.moe/g6vp9p.jpg")
+    FILE_PIC = env.get('FILE_PIC', "https://files.catbox.moe/10l8j0.jpg")
     
     # Comma-seperated urls to get random images on each start command
     START_PICS_STRING = env.get(
@@ -43,7 +43,7 @@ class Telegram:
     )
     START_PICS = [url.strip() for url in START_PICS_STRING.split(',')]
     
-    VERIFY_PIC = env.get('VERIFY_PIC', "https://files.catbox.moe/bxv5bd.jpg")
+    VERIFY_PIC = env.get('VERIFY_PIC', "https://files.catbox.moe/ydf8d4.jpg")
     MULTI_CLIENT = False
     FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", None))   # Logs channel for file logs
     ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", None))   # Logs channel for user logs
