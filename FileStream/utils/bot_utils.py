@@ -195,21 +195,39 @@ async def is_user_authorized(message):
 
 # User Exist
 async def is_user_exist(bot, message):
-    if not bool(await db.get_user(message.from_user.id)):
-        await db.add_user(message.from_user.id)
+    user = message.from_user
+    if not user:
+        return
+        
+    # Safely get username
+    username = user.username if user.username else "None"
+    
+    # Check if user is in DB
+    if not bool(await db.get_user(user.id)):
+        # Pass ID, Name, and Username to DB
+        await db.add_user(user.id, user.first_name, username)
         await bot.send_message(
             Telegram.ULOG_CHANNEL,
-            f"**#NᴇᴡUsᴇʀ**\n**⬩ ᴜsᴇʀ ɴᴀᴍᴇ :** [{message.from_user.first_name}](tg://user?id={message.from_user.id})\n**⬩ ᴜsᴇʀ ɪᴅ :** `{message.from_user.id}`"
+            f"**#NᴇᴡUsᴇʀ**\n**⬩ ᴜsᴇʀ ɴᴀᴍᴇ :** [{user.first_name}](tg://user?id={user.id})\n**⬩ ᴜsᴇʀ ɪᴅ :** `{user.id}`"
         )
+    else:
+        # Update existing user info (Self-Healing)
+        await db.update_user_info(user.id, user.first_name, username)
 
 # Channel Exist
 async def is_channel_exist(bot, message):
-    if not bool(await db.get_user(message.chat.id)):
-        await db.add_user(message.chat.id)
-        members = await bot.get_chat_members_count(message.chat.id)
+    chat_id = message.chat.id
+    title = message.chat.title
+    # Safely get username for channel
+    username = message.chat.username if message.chat.username else "None"
+
+    if not bool(await db.get_user(chat_id)):
+        # Pass ID, Title (as Name), and Username to DB
+        await db.add_user(chat_id, title, username)
+        members = await bot.get_chat_members_count(chat_id)
         await bot.send_message(
             Telegram.ULOG_CHANNEL,
-            f"**#NᴇᴡCʜᴀɴɴᴇʟ** \n**⬩ ᴄʜᴀᴛ ɴᴀᴍᴇ :** `{message.chat.title}`\n**⬩ ᴄʜᴀᴛ ɪᴅ :** `{message.chat.id}`\n**⬩ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs :** `{members}`"
+            f"**#NᴇᴡCʜᴀɴɴᴇʟ** \n**⬩ ᴄʜᴀᴛ ɴᴀᴍᴇ :** `{title}`\n**⬩ ᴄʜᴀᴛ ɪᴅ :** `{chat_id}`\n**⬩ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs :** `{members}`"
         )
 
 # Verify User
