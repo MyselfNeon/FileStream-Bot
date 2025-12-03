@@ -4,12 +4,14 @@
 # GitHub: https://github.com/MyselfNeon/
 # Telegram: https://t.me/MyelfNeon
 # Created: 2025-11-21
-# Last Modified: 2025-11-22
+# Last Modified: 2025-11-22 (Merged with /users command)
 # Version: Latest
 # License: MIT License
 # ---------------------------------------------------
 
 import asyncio
+import json
+import os
 from FileStream.bot import FileStream, multi_clients
 from FileStream.utils.bot_utils import (
     is_user_banned,
@@ -29,6 +31,9 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.enums.parse_mode import ParseMode
 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
+
+# Set Admin ID for filtering (Required for /users command)
+ADMINS = [Telegram.OWNER_ID]
 
 @FileStream.on_message(
     filters.private
@@ -124,6 +129,67 @@ async def channel_receive_handler(bot: Client, message: Message):
             disable_web_page_preview=True
         )
         print(f"Cᴀɴ'ᴛ Eᴅɪᴛ Bʀᴏᴀᴅᴄᴀsᴛ Mᴇssᴀɢᴇ!\nEʀʀᴏʀ:  **Gɪᴠᴇ ᴍᴇ ᴇᴅɪᴛ ᴘᴇʀᴍɪssɪᴏɴ ɪɴ ᴜᴘᴅᴀᴛᴇs ᴀɴᴅ ʙɪɴ Cʜᴀɴɴᴇʟ!{e}**")
+
+
+# ---------------------------------------------------
+# /users Command Handler (Merged)
+# ---------------------------------------------------
+@FileStream.on_message(filters.command("users") & filters.user(ADMINS))
+async def users_count(bot: Client, message: Message):
+    """
+    Handles the /users command. Provides user statistics and exports the entire 
+    user list (name, username, id) as a JSON file to the admin.
+    """
+    msg = await message.reply_text("⏳ <b>__Gathering User Data...__</b>", quote=True)
+    try:
+        # 1. Fetch total count
+        total = await db.total_users_count()
+        
+        # Update status with count
+        await msg.edit_text(
+            f"""
+🌀 <b><i>User Analytics Update</i></b> 🌀
+
+👥 <b>Total Registered Users:</b> {total}
+🛰 <b>System Status:</b> Active ✅
+🧠 <b>Data Source:</b> MongoDB (async)
+"""
+        )
+
+        # 2. Prepare and export user data to JSON
+        users_cursor = await db.get_all_users()
+        users_list = []
+        async for user in users_cursor:
+            # Collect user data from the database cursor
+            users_list.append({
+                "name": user.get("name", "None"),
+                "username": user.get("username", "None"),
+                "id": user.get("id")
+            })
+
+        # Define temporary filename
+        tmp_path = "user_database_export.json" 
+        
+        # Write data to JSON file
+        with open(tmp_path, "w", encoding="utf-8") as f:
+            json.dump(users_list, f, indent=2, ensure_ascii=False)
+
+        # 3. Send the JSON file
+        caption = f"📄 **Recorded {len(users_list)} Users**"
+        await message.reply_document(
+            document=tmp_path,
+            caption=caption
+        )
+
+        # 4. Cleanup
+        try:
+            os.remove(tmp_path)
+        except Exception as e:
+            print(f"[!] Failed to Delete File {tmp_path}: {e}")
+
+    except Exception as e:
+        await msg.edit_text(f"**__⚠️ Error Fetching User Data:__**\n<code>{e}</code>")
+        print(f"[!] /users error: {e}")
 
 
 # MyselfNeon
