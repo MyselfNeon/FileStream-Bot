@@ -17,7 +17,7 @@ from FileStream import __version__
 from FileStream.bot import FileStream
 from FileStream.server.exceptions import FIleNotFound
 from FileStream.utils.bot_utils import gen_linkx, verify_user
-from FileStream.config import Telegram
+from FileStream.config import Telegram # Assuming Telegram.START_PICS is now a list
 from FileStream.utils.database import Database
 from FileStream.utils.translation import LANG, BUTTON
 from pyrogram import filters, Client
@@ -49,11 +49,18 @@ async def start(bot: Client, message: Message):
         return
 
     usr_cmd = message.text.split("_")[-1]
+    # 🌟 Select a random picture URL from the list
+    try:
+        random_start_pic = random.choice(Telegram.START_PICS)
+    except (TypeError, IndexError):
+        # Fallback if START_PICS is empty
+        random_start_pic = None 
 
     if usr_cmd == "/start":
-        if Telegram.START_PIC:
+        # Check if a valid picture was selected
+        if random_start_pic:
             await message.reply_photo(
-                photo=Telegram.START_PIC,
+                photo=random_start_pic, # Use the randomly selected URL
                 caption=LANG.START_TEXT.format(message.from_user.mention, FileStream.username),
                 parse_mode=ParseMode.HTML,
                 reply_markup=BUTTON.START_BUTTONS
@@ -65,6 +72,7 @@ async def start(bot: Client, message: Message):
                 disable_web_page_preview=True,
                 reply_markup=BUTTON.START_BUTTONS
             )
+    
     else:
         if "stream_" in message.text:
             try:
@@ -115,13 +123,20 @@ async def start(bot: Client, message: Message):
 async def start(bot, message):
     if not await verify_user(bot, message):
         return
-    if Telegram.START_PIC:
+        
+    try:
+        random_start_pic = random.choice(Telegram.START_PICS)
+    except (TypeError, IndexError):
+        random_start_pic = None
+        
+    if random_start_pic:
         await message.reply_photo(
-            photo=Telegram.START_PIC,
+            photo=random_start_pic, 
             caption=LANG.ABOUT_TEXT.format(FileStream.fname, __version__),
             parse_mode=ParseMode.HTML,
             reply_markup=BUTTON.ABOUT_BUTTONS
         )
+    
     else:
         await message.reply_text(
             text=LANG.ABOUT_TEXT.format(FileStream.fname, __version__),
@@ -133,13 +148,20 @@ async def start(bot, message):
 async def help_handler(bot, message):
     if not await verify_user(bot, message):
         return
-    if Telegram.START_PIC:
+        
+    try:
+        random_start_pic = random.choice(Telegram.START_PICS)
+    except (TypeError, IndexError):
+        random_start_pic = None
+        
+    if random_start_pic:
         await message.reply_photo(
-            photo=Telegram.START_PIC,
+            photo=random_start_pic, # Use the randomly selected URL
             caption=LANG.HELP_TEXT.format(Telegram.OWNER_ID),
             parse_mode=ParseMode.HTML,
             reply_markup=BUTTON.HELP_BUTTONS
         )
+
     else:
         await message.reply_text(
             text=LANG.HELP_TEXT.format(Telegram.OWNER_ID),
@@ -176,7 +198,6 @@ async def my_files(bot: Client, message: Message):
         caption=f"Total files: {total_files}",
         reply_markup=InlineKeyboardMarkup(file_list)
     )
-
 
 # MyselfNeon
 # Don't Remove Credit 🥺
