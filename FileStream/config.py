@@ -32,7 +32,15 @@ class Telegram:
     FILE_PIC = env.get('FILE_PIC', "https://files.catbox.moe/g6vp9p.jpg")
     
     # Comma-seperated urls to get random images on each start command
-    START_PICS_STRING = env.get('START_PICS', "https://files.catbox.moe/a0js39.jpg,https://files.catbox.moe/ni25rb.jpg,https://files.catbox.moe/561dmo.jpg,https://files.catbox.moe/wryhyh.jpg")
+    START_PICS_STRING = env.get(
+    'START_PICS',
+    ",".join([
+        "https://files.catbox.moe/a0js39.jpg",
+        "https://files.catbox.moe/ni25rb.jpg",
+        "https://files.catbox.moe/561dmo.jpg",
+        "https://files.catbox.moe/wryhyh.jpg",
+    ])
+    )
     START_PICS = [url.strip() for url in START_PICS_STRING.split(',')]
     
     VERIFY_PIC = env.get('VERIFY_PIC', "https://files.catbox.moe/bxv5bd.jpg")
