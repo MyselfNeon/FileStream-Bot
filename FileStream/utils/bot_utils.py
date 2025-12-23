@@ -221,7 +221,7 @@ async def is_user_exist(bot, message):
         bot_username = bot.username if hasattr(bot, 'username') and bot.username else (await bot.get_me()).username
 
         log_text = (
-            f"**⌬ #NewUser 🆕👤** \n"
+            f"**⌬ 🆕👤 #NewUser** \n"
             f"**┟ Bot:** __@{bot_username}__\n"
             f"**┟ User:** __{user.mention}__\n"
             f"**┟ User ID:** <code>{user.id}</code>\n"
