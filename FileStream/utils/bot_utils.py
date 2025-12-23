@@ -19,6 +19,11 @@ from FileStream.config import Telegram, Server
 from FileStream.bot import FileStream
 import asyncio
 from typing import Union
+# ✅ Added imports for Date/Time
+from datetime import datetime, timezone, timedelta
+
+# ✅ Indian Standard Time
+IST = timezone(timedelta(hours=5, minutes=30))
 
 # Database
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
@@ -206,10 +211,25 @@ async def is_user_exist(bot, message):
     if not bool(await db.get_user(user.id)):
         # Pass ID, Name, and Username to DB
         await db.add_user(user.id, user.first_name, username)
-        await bot.send_message(
-            Telegram.ULOG_CHANNEL,
-            f"**#NᴇᴡUsᴇʀ**\n**⬩ ᴜsᴇʀ ɴᴀᴍᴇ :** [{user.first_name}](tg://user?id={user.id})\n**⬩ ᴜsᴇʀ ɪᴅ :** `{user.id}`"
+        
+        # ✅ New User Log Logic
+        now = datetime.now(IST)
+        date = now.strftime("%d/%m/%y")
+        time = now.strftime("%I:%M.%S %p")
+        
+        # Ensure we have bot username
+        bot_username = bot.username if hasattr(bot, 'username') and bot.username else (await bot.get_me()).username
+
+        log_text = (
+            f"**⌬ #NewUser 🆕👤** \n"
+            f"**┟ Bot:** __@{bot_username}__\n"
+            f"**┟ User:** __{user.mention}__\n"
+            f"**┟ User ID:** <code>{user.id}</code>\n"
+            f"**┟ Date:** __{date}__\n"
+            f"**┖ Time:** __{time}__"
         )
+
+        await bot.send_message(Telegram.ULOG_CHANNEL, log_text)
     else:
         # Update existing user info (Self-Healing)
         await db.update_user_info(user.id, user.first_name, username)
