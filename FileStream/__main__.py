@@ -15,6 +15,7 @@ import asyncio
 import logging
 import traceback
 import logging.handlers as handlers
+from datetime import datetime, timezone, timedelta  # ✅ Added for TimeZone
 from FileStream.config import Telegram, Server, KEEP_ALIVE_URL
 from aiohttp import web
 from pyrogram import idle
@@ -49,19 +50,6 @@ logging.getLogger("aiohttp.web").setLevel(logging.ERROR)
 server = web.AppRunner(web_server())
 loop = asyncio.get_event_loop()
 
-# Hosting Platform Detector
-def detect_hosting_platform():
-    if os.getenv("RENDER") or os.getenv("RENDER_SERVICE_ID"):
-        return "Render"
-    elif os.getenv("KOYEB_APP_NAME"):
-        return "Koyeb"
-    elif os.getenv("DYNO"):
-        return "Heroku"
-    elif os.getenv("RAILWAY_STATIC_URL"):
-        return "Railway"
-    else:
-        return "Localhost"
-
 # Keep Alive Function
 async def keep_alive():
     """Send a request every 100 seconds to keep the bot alive (if required)."""
@@ -94,21 +82,21 @@ async def start_services():
     # 🟢 Send startup log to ULOG_CHANNEL (auto-delete after 1 hour)
     try:
         if Telegram.ULOG_CHANNEL:
-            from datetime import datetime
-
-            now = datetime.now()
-            date = now.strftime("%d %b %Y")
-            time = now.strftime("%I:%M %p")
-            platform_name = detect_hosting_platform()
+            # ✅ Calculate IST Time
+            ist = timezone(timedelta(hours=5, minutes=30))
+            now = datetime.now(ist)
+            date = now.strftime("%d/%m/%y")
+            time = now.strftime("%I:%M:%S %p")
 
             restart_msg = await FileStream.send_message(
                 Telegram.ULOG_CHANNEL,
                 (
-                    "♻️ **__Bot Successfully Deployed__**\n\n"
-                    f"**__🤖 Name : {bot_info.first_name}__**\n"
-                    f"**__🌐 Deployed On : [{platform_name}]({Server.URL})__**\n\n"
-                    f"**__📆 Date : {date}__**\n"
-                    f"**__⏰ Time : {time}__**"
+                    f"**⌬ Restarted Successfully !**\n"
+                    f"**┟ Bot:** __@{bot_info.username}__\n"
+                    f"**┟ Date:** __{date}__\n"
+                    f"**┠ Time:** __{time}__\n"
+                    f"**┠ TimeZone:** __Asia/Kolkata__\n"
+                    f"**┖ Version:** __v3.0.8-x__"
                 ),
                 disable_web_page_preview=True
             )
