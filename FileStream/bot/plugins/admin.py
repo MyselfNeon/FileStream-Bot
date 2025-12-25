@@ -23,12 +23,23 @@ from FileStream.bot import FileStream
 from FileStream.server.exceptions import FIleNotFound
 from FileStream.config import Telegram, Server
 from pyrogram import filters, Client
-from pyrogram.types import Message
+from pyrogram.types import Message, BotCommand
 from pyrogram.enums.parse_mode import ParseMode
 
 # Database Setup 
 db = Database(Telegram.DATABASE_URL, Telegram.SESSION_NAME)
 broadcast_ids = {}
+
+# --- Command List Configuration ---
+COMMANDS_TEXT = """
+start - ⚡ 𝘊𝘩𝘦𝘤𝘬 𝘪𝘧 𝘉𝘰𝘵 𝘪𝘴 𝘈𝘭𝘪𝘷𝘦
+files - 📂 𝘎𝘦𝘵 𝘈𝘭𝘭 𝘍𝘪𝘭𝘦𝘴 𝘓𝘪𝘴𝘵 𝘰𝘧 𝘜𝘴𝘦𝘳
+del - 🗑️ 𝘋𝘦𝘭𝘦𝘵𝘦 𝘍𝘪𝘭𝘦𝘴 𝘧𝘳𝘰𝘮 𝘋𝘉 𝘸𝘪𝘵𝘩 𝘍𝘪𝘭𝘦 𝘐𝘋
+ban - 🚫 𝘉𝘢𝘯 𝘢𝘯𝘺 𝘊𝘩𝘢𝘯𝘯𝘦𝘭 𝘰𝘳 𝘜𝘴𝘦𝘳
+unban - 🔓 𝘜𝘯𝘉𝘢𝘯 𝘢𝘯𝘺 𝘊𝘩𝘢𝘯𝘯𝘦𝘭 𝘰𝘧 𝘜𝘴𝘦𝘳
+status - 📊 𝘎𝘦𝘵 𝘉𝘰𝘵 𝘚𝘵𝘢𝘵𝘶𝘴 𝘢𝘯𝘥 𝘛𝘰𝘵𝘢𝘭 𝘜𝘴𝘦𝘳𝘴
+broadcast - 📢 𝘉𝘳𝘰𝘢𝘥𝘤𝘢𝘴𝘵 𝘢𝘯𝘺 𝘔𝘴𝘨 𝘵𝘰 𝘜𝘴𝘦𝘳𝘴
+"""
 
 # /status Command 
 @FileStream.on_message(filters.command("status") & filters.private & filters.user(Telegram.OWNER_ID))
@@ -177,6 +188,26 @@ async def del_file(c: Client, m: Message):
     await db.delete_one_file(file_info['_id'])
     await db.count_links(file_info['user_id'], "-")
     await m.reply_text("✅ **File deleted successfully!**", quote=True)
+
+# /setcmd Command
+@FileStream.on_message(filters.command("setcmd") & filters.user(Telegram.OWNER_ID))
+async def set_commands(client: Client, message: Message):
+    commands = []
+    
+    # Parse the text block line by line
+    for line in COMMANDS_TEXT.strip().split("\n"):
+        if "-" in line:
+            cmd, desc = line.split("-", 1)
+            commands.append(BotCommand(cmd.strip(), desc.strip()))
+
+    if not commands:
+        return await message.reply_text("❌ No commands found in the configuration list.")
+
+    try:
+        await client.set_bot_commands(commands)
+        await message.reply_text(f"✅ **__Success! Updated {len(commands)} Commands.__**")
+    except Exception as e:
+        await message.reply_text(f"❌ **__Error:__** `{e}`")
 
 
 # MyselfNeon
