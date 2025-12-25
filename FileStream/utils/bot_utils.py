@@ -1,12 +1,9 @@
 # ---------------------------------------------------
 # File Name: Bot_utils.py
-# Author: NeonAnurag
+# Author: MyselfNeon
+# Original Repo: https://github.com/MyselfNeon/FileStream-Bot
 # GitHub: https://github.com/MyselfNeon/
 # Telegram: https://t.me/MyelfNeon
-# Created: 2025-11-21
-# Last Modified: 2025-11-22
-# Version: Latest
-# License: MIT License
 # ---------------------------------------------------
 
 from pyrogram.errors import UserNotParticipant, FloodWait
@@ -19,10 +16,9 @@ from FileStream.config import Telegram, Server
 from FileStream.bot import FileStream
 import asyncio
 from typing import Union
-# ✅ Added imports for Date/Time
 from datetime import datetime, timezone, timedelta
 
-# ✅ Indian Standard Time
+# ✅ Indian Standard Time (IST)
 IST = timezone(timedelta(hours=5, minutes=30))
 
 # Database
@@ -60,7 +56,7 @@ async def is_user_joined(bot, message: Message):
         if Telegram.VERIFY_PIC:
             ver = await message.reply_photo(
                 photo=Telegram.VERIFY_PIC,
-                caption="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
+                caption="<i><b>Jᴏɪɴ Mʏ Uᴘᴅᴀᴛᴇ Cʜᴀɴɴᴇʟ Tᴏ Usᴇ Mᴇ 🔐</b></i>",
                 parse_mode=ParseMode.HTML,
                 reply_markup=InlineKeyboardMarkup(
                 [[
@@ -70,7 +66,7 @@ async def is_user_joined(bot, message: Message):
             )
         else:
             ver = await message.reply_text(
-                text="<i>Jᴏɪɴ ᴍʏ ᴜᴘᴅᴀᴛᴇ ᴄʜᴀɴɴᴇʟ ᴛᴏ ᴜsᴇ ᴍᴇ 🔐</i>",
+                text="<b><i>Jᴏɪɴ Mʏ Uᴘᴅᴀᴛᴇ Cʜᴀɴɴᴇʟ Tᴏ Usᴇ Mᴇ 🔐</i></b>",
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton("❆ Jᴏɪɴ Oᴜʀ Cʜᴀɴɴᴇʟ ❆", url=invite_link.invite_link)
@@ -87,7 +83,7 @@ async def is_user_joined(bot, message: Message):
         return False
     except Exception:
         await message.reply_text(
-            text=f"<i>Sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ᴄᴏɴᴛᴀᴄᴛ ᴍʏ ᴅᴇᴠᴇʟᴏᴘᴇʀ</i> <b><a href='https://t.me/{Telegram.UPDATES_CHANNEL}'>[ ᴄʟɪᴄᴋ ʜᴇʀᴇ ]</a></b>",
+            text=f"<b><i>Sᴏᴍᴇᴛʜɪɴɢ Wʀᴏɴɢ! \nCᴏɴᴛᴀᴄᴛ Mʏ Dᴇᴠᴇʟᴏᴘᴇʀ</i> <a href='https://t.me/{Telegram.UPDATES_CHANNEL}'>[ Cʟɪᴄᴋ Hᴇʀᴇ ]</a></b>",
             parse_mode=ParseMode.HTML,
             disable_web_page_preview=True)
         return False
@@ -108,11 +104,11 @@ async def gen_link(_id):
         stream_text = LANG.STREAM_TEXT.format(file_name, file_size, stream_link, page_link, file_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("Sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("Dᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
-                [InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url=file_link), InlineKeyboardButton("Rᴇᴠᴏᴋᴇ Fɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
+                [InlineKeyboardButton("📹 Sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("Dᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
+                [InlineKeyboardButton("📂 Gᴇᴛ Fɪʟᴇ", url=file_link), InlineKeyboardButton("Rᴇᴠᴏᴋᴇ Fɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
                 [
                     InlineKeyboardButton("📤 Sʜᴀʀᴇ", url=f"https://t.me/share/url?url={file_link}&text=Check%20out%20this%20file%20on%20{FileStream.username}!"),
-                    InlineKeyboardButton("Cʟᴏsᴇ", callback_data="close")
+                    InlineKeyboardButton("❌ Cʟᴏsᴇ", callback_data="close")
                 ]
             ]
         )
@@ -120,11 +116,11 @@ async def gen_link(_id):
         stream_text = LANG.STREAM_TEXT_X.format(file_name, file_size, stream_link, file_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("Dᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
-                [InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url=file_link), InlineKeyboardButton("Rᴇᴠᴏᴋᴇ Fɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
+                [InlineKeyboardButton("📥 Dᴏᴡɴʟᴏᴀᴅ", url=stream_link)],
+                [InlineKeyboardButton("📂 Gᴇᴛ Fɪʟᴇ", url=file_link), InlineKeyboardButton("Rᴇᴠᴏᴋᴇ Fɪʟᴇ", callback_data=f"msgdelpvt_{_id}")],
                 [
                     InlineKeyboardButton("📤 Sʜᴀʀᴇ", url=f"https://t.me/share/url?url={file_link}&text=Check%20out%20this%20file%20on%20{FileStream.username}!"),
-                    InlineKeyboardButton("Cʟᴏsᴇ", callback_data="close")
+                    InlineKeyboardButton("❌ Cʟᴏsᴇ", callback_data="close")
                 ]
             ]
         )
@@ -145,14 +141,14 @@ async def gen_linkx(m: Message, _id, name: list):
         stream_text = LANG.STREAM_TEXT_X.format(file_name, file_size, stream_link, page_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ", url=stream_link)]
+                [InlineKeyboardButton("📹 Sᴛʀᴇᴀᴍ", url=page_link), InlineKeyboardButton("📥 Dᴏᴡɴʟᴏᴀᴅ", url=stream_link)]
             ]
         )
     else:
         stream_text = LANG.STREAM_TEXT_X.format(file_name, file_size, stream_link, file_link)
         reply_markup = InlineKeyboardMarkup(
             [
-                [InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ", url=stream_link)]
+                [InlineKeyboardButton("📥 Dᴏᴡɴʟᴏᴀᴅ", url=stream_link)]
             ]
         )
     return reply_markup, stream_text
@@ -175,7 +171,7 @@ async def is_channel_banned(bot, message):
             chat_id=message.chat.id,
             message_id=message.id,
             reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton(f"ᴄʜᴀɴɴᴇʟ ɪs ʙᴀɴɴᴇᴅ", callback_data="N/A")]])
+                InlineKeyboardButton(f"🚫 Cʜᴀɴɴᴇʟ Is Bᴀɴɴᴇᴅ", callback_data="N/A")]])
         )
         return True
     return False
@@ -190,7 +186,7 @@ async def is_user_authorized(message):
 
         if not (user_id in Telegram.AUTH_USERS):
             await message.reply_text(
-                text="Yᴏᴜ ᴀʀᴇ ɴᴏᴛ ᴀᴜᴛʜᴏʀɪᴢᴇᴅ ᴛᴏ ᴜsᴇ ᴛʜɪs ʙᴏᴛ.",
+                text="<b><i>Yᴏᴜ Aʀᴇ Nᴏᴛ Aᴜᴛʜᴏʀɪᴢᴇᴅ Tᴏ Usᴇ Tʜɪs Bᴏᴛ.</b></i>",
                 parse_mode=ParseMode.MARKDOWN,
                 disable_web_page_preview=True
             )
@@ -221,10 +217,10 @@ async def is_user_exist(bot, message):
         bot_username = bot.username if hasattr(bot, 'username') and bot.username else (await bot.get_me()).username
 
         log_text = (
-            f"**⌬ 🆕👤 #NewUser** \n"
+            f"**⌬ #NewUser 🆕👤**\n"
             f"**┟ Bot:** __@{bot_username}__\n"
-            f"**┟ User:** __{user.mention}__\n"
-            f"**┟ User ID:** <code>{user.id}</code>\n"
+            f"**┟ User:** __[{user.first_name}](tg://user?id={user.id})__\n"
+            f"**┟ User ID:** `{user.id}`\n"
             f"**┟ Date:** __{date}__\n"
             f"**┖ Time:** __{time}__"
         )
@@ -245,10 +241,30 @@ async def is_channel_exist(bot, message):
         # Pass ID, Title (as Name), and Username to DB
         await db.add_user(chat_id, title, username)
         members = await bot.get_chat_members_count(chat_id)
-        await bot.send_message(
-            Telegram.ULOG_CHANNEL,
-            f"**#NᴇᴡCʜᴀɴɴᴇʟ** \n**⬩ ᴄʜᴀᴛ ɴᴀᴍᴇ :** `{title}`\n**⬩ ᴄʜᴀᴛ ɪᴅ :** `{chat_id}`\n**⬩ ᴛᴏᴛᴀʟ ᴍᴇᴍʙᴇʀs :** `{members}`"
+        
+        # ✅ New Channel Log Logic
+        now = datetime.now(IST)
+        date = now.strftime("%d/%m/%y")
+        time = now.strftime("%I:%M.%S %p")
+        
+        # Ensure we have bot username
+        bot_username = bot.username if hasattr(bot, 'username') and bot.username else (await bot.get_me()).username
+
+        # Handle 'Added By' field safely
+        adder_name = f"[{message.from_user.first_name}](tg://user?id={message.from_user.id})" if message.from_user else "Unknown (Channel Admin)"
+
+        log_text = (
+            f"**⌬ #NewChannel 🆕👥**\n"
+            f"**┟ Bot:** __@{bot_username}__\n"
+            f"**┟ Added By:** __{adder_name}__\n"
+            f"**┟ Chat Name:** __{title}__\n"
+            f"**┟ Chat ID:** `{chat_id}`\n"
+            f"**┟ Total Members:** __{members}__\n"
+            f"**┟ Date:** __{date}__\n"
+            f"**┖ Time:** __{time}__"
         )
+
+        await bot.send_message(Telegram.ULOG_CHANNEL, log_text)
 
 # Verify User
 async def verify_user(bot, message):
