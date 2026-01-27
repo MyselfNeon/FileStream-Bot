@@ -26,6 +26,7 @@ from FileStream.utils.render_template import render_page
 routes = web.RouteTableDef()
 
 # Status Route
+@routes.get("/", allow_head=True)
 @routes.get("/status", allow_head=True)
 async def root_route_handler(_):
     return web.json_response(
