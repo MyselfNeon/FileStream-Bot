@@ -94,6 +94,10 @@ async def private_receive_handler(bot: Client, message: Message):
     )
 )
 async def channel_receive_handler(bot: Client, message: Message):
+    # Ignore messages from ULOG and FLOG Channels
+    if int(message.chat.id) in [Telegram.ULOG_CHANNEL, Telegram.FLOG_CHANNEL]:
+        return
+
     if await is_channel_banned(bot, message):
         return
 
